@@ -5,6 +5,9 @@ $LOAD_PATH << './lib'
 require 'sparql/client'
 
 #This module is used to run some standard SPARQL Queries
+#The examples below can serve as models for you own queries.
+#The default SPARQL endpoint is set in the /config/environment.rb file
+
 module SparqlQuery
 
   TAB = "\t"
