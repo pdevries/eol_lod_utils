@@ -1,0 +1,10 @@
+get_binomial_urn_list.rake
+get_dbpedia_txn_depictions_thumbs_lists.rake
+get_dbpedia_txn_label_list.rake
+get_eol_txn_data_objects_list.rake
+get_eol_txn_thumbnail_list.rake
+get_wikipedia_do_list.rake
+proc_binomial_names.rake
+proc_family_names.rake
+proc_genus_names.rake
+proc_subfamily_names.rake
