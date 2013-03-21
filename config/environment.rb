@@ -8,6 +8,9 @@ EolLodUtils::Application.initialize!
   EOL_SPARQL_ENDPOINT      = "http://lod.eol.org/sparql"
   TXN_SPARQL_ENDPOINT      = "http://lsd.taxonconcept.org/sparql"
   DBPEDIA_SPARQL_ENDPOINT  = "http://dbpedia/sparql"
-  LOCAL_SPARQL_ENDPOINT    = "http://hal.local:8890/sparql"
+  LOCAL_SPARQL_ENDPOINT    = "http://lod.local:8890/sparql"
   DBPEDIA_SPARQL_ENDPOINT  = "http://dbpedia/sparql"
-  DEFAULT_SPARQL_ENDPOINT  = "http://lod.eol.org/sparql"
+  DEFAULT_SPARQL_ENDPOINT  = "http://lsd.taxonconcept.org/sparql"
+
+  DEFAULT_DBSPOTLIGHT_URI = "http://spotlight.dbpedia.org/rest/"
+  LOCAL_DBSPOTLIGHT_URI   = "http://spotlight.local:2222/rest/"

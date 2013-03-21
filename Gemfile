@@ -39,4 +39,4 @@ gem 'jquery-rails'
 
 # Specific to eol_lod_utils
 gem 'sparql-client'
-
+gem 'httparty'

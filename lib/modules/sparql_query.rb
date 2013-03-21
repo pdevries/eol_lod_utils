@@ -1,7 +1,11 @@
 # encoding: UTF-8
 #!/usr/bin/env ruby
 #lib/modules/sparql_query.rb
-$LOAD_PATH << './lib'
+path      = File.expand_path("../")
+require path + '/app/models/subject_object'
+require path + '/app/models/uri_label_object'
+require path + '/app/models/taxon_do_text'
+require path + '/app/models/spotlight_resource'
 require 'sparql/client'
 
 #This module is used to run some standard SPARQL Queries
@@ -10,6 +14,11 @@ require 'sparql/client'
 
 module SparqlQuery
 
+  EOL_SPARQL_ENDPOINT      = "http://lod.eol.org/sparql"
+  TXN_SPARQL_ENDPOINT      = "http://lsd.taxonconcept.org/sparql"
+  DBPEDIA_SPARQL_ENDPOINT  = "http://dbpedia/sparql"
+  LOCAL_SPARQL_ENDPOINT    = "http://lod.local:8890/sparql"
+  DEFAULT_SPARQL_ENDPOINT  = "http://lsd.taxonconcept.org/sparql"
   TAB = "\t"
 
   ##TODO This needs more error checking
@@ -243,6 +252,22 @@ module SparqlQuery
 
 ## Get information about a specific taxon id
 
+  def SparqlQuery.get_eol_taxon_do(eol_id, do_array)
+     if !eol_id.nil? && eol_id.kind_of?(Integer) then
+        taxon_uri = "<http://lod.eol.org/txn/" + eol_id.to_s + ">"
+        sparql = SPARQL::Client.new(DEFAULT_SPARQL_ENDPOINT)
+        result = sparql.query("select distinct ?do where {#{taxon_uri} a <http://purl.org/biodiversity/eol/Taxon>. #{taxon_uri} <http://purl.org/biodiversity/eol/hasDataObject> ?do}")
+        result.each do |line|
+            do_uri   = line[:do].to_s
+            do_array << do_uri
+        end #do each line
+      else
+        do_array = nil
+      end    
+      return do_array
+   end #SparqlQuery.get_eol_taxon_do(eol_id, do_array)
+
+
   def SparqlQuery.get_eol_taxon_thumbnails(eol_id, image_url_array)
      if !eol_id.nil? && eol_id.kind_of?(Integer) then
         taxon_uri = "<http://lod.eol.org/txn/" + eol_id.to_s + ">"
@@ -286,6 +311,24 @@ module SparqlQuery
         text_array = nil
       end    
       return text_array
+  end #SparqlQuery.get_eol_taxon_text(eol_id, text_array)
+
+  def SparqlQuery.get_eol_taxon_do_text(eol_id, do_text_array)
+     if !eol_id.nil? && eol_id.kind_of?(Integer) then
+        taxon_uri = 'http://lod.eol.org/txn/' + eol_id.to_s
+        taxon_subject = '<' + taxon_uri + '>'
+        sparql = SPARQL::Client.new(DEFAULT_SPARQL_ENDPOINT)
+        result = sparql.query("select distinct ?do ?text where {#{taxon_subject} <http://purl.org/biodiversity/eol/hasDataObject> ?do. ?do a <http://purl.org/biodiversity/eol/TextObject>. ?do <http://purl.org/biodiversity/eol/resultText> ?text}")
+        result.each do |do_text|
+          data_object  = do_text[:do].to_s
+          text   = do_text[:text].to_s
+          do_text_object = TaxonDoText.new(taxon_uri, data_object, text)
+          do_text_array << do_text_object
+        end #do each line
+      else
+        do_text_array = nil
+      end    
+      return do_text_array
   end #SparqlQuery.get_eol_taxon_text(eol_id, text_array)
 
 end #module
