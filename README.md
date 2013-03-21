@@ -2,9 +2,9 @@
 
 Included are some sample utilities and code for querying the EoL LOD data set.
 It has one dependency beyond rails - the sparql-client gem.
-You can look at the example queries in the sparql_query module link:files/lib/modules/sparql_query.rb as a guide for adding your own queries.
-
-Set your preferred SPARQL endpoint in link:files/config/environment.rb. 
+You can look at the example queries in the sparql_query module
+link:https://github.com/pdevries/eol_lod_utils/lib/modules/sparql_query.rb
+as a guide for adding your own queries.
 
 Command Line Programs /bin
 
@@ -31,13 +31,14 @@ This uses code from link:https://github.com/fumi/dbpedia-spotlight-rb which does
 
 Other example queries are run through rake tasks.
 
-EoL Queries
+== EoL Queries
 
-linkhttps://github.com/pdevries/eol_lod_utils/lib/tasks/get_eol_txn_data_objects_list.rake
+link:https://github.com/pdevries/eol_lod_utils/lib/tasks/get_eol_txn_data_objects_list.rake
 
 Queries and endpoint and returns a tab delimited list of eol_id, data_object_uuid
 
 link:https://github.com/pdevries/eol_lod_utils/lib/tasks/get_eol_txn_thumbnail_list.rake
+
 Queries configured endpoint creating tab delimited eol_id, thumbnail_url file
 
 link:https://github.com/pdevries/eol_lod_utils/lib/tasks/get_eol_txn_data_objects_list.rake
@@ -48,24 +49,27 @@ link:https://github.com/pdevries/eol_lod_utils/lib/tasks/get_wikipedia_do_list.r
 
 Returns a list of data objects which the subject attribute indicates are from Wikipedia
 
-DBpedia Queries
+== DBpedia Queries
 
 Note DBpedia.org endpoint is limited number of lines, so you might want want to setup your own local instance of that data if you run queries returning thousands of lines.
 
 link:https://github.com/pdevries/eol_lod_utils/lib/tasks/get_dbpedia_txn_depictions_thumbs_lists.rake
+
 Queries and endpoint and creates TURTLE files of DBpedia taxon depictions and thumbnails.
 Turtle files will need prefixes added.
 
 link:https://github.com/pdevries/eol_lod_utils/lib/tasks/get_dbpedia_txn_depictions_thumbs_lists.rake
+
 Queries and endpoint and creates TURTLE files of DBpedia taxon depictions and thumbnails.
 Turtle files will need prefixes added.
 
 link:https://github.com/pdevries/eol_lod_utils/lib/tasks/get_dbpedia_txn_label_list.rake
+
 Creates a Turtle file containing the english DBpedia labels for things of type dbpedia:Species.
 to be complete Turtle files, prefixes will need to be added.
 Note: Some Turtle syntax errors occur with names that contain quotes. I will need to add code to escape these.
 
-Name Utilities
+== Name Utilities
 
 This code create urn-based identifiers for various taxonomic name strings. It only checks for some simple errors in the input name strings.
 Also the resulting Turtle files come with the following open world understanding. Just because a name string is a genus name string does not mean it can't also be a subgenus or even order name.
